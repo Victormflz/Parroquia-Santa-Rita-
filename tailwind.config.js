@@ -9,7 +9,7 @@ export default {
         extend: {
             fontFamily: {
                 sans: ['Inter', 'sans-serif'],
-                serif: ['Merriweather', 'serif'],
+                serif: ['Playfair Display', 'serif'],
             },
             colors: {
                 parish: {

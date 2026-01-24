@@ -62,16 +62,10 @@ export const Header = memo(() => {
                     }`}
             >
                 <div className="container mx-auto px-4 flex justify-between items-center">
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-center">
                         <div className={isScrolled ? 'text-parish-blue' : 'text-white'}>
                             <Logo size={isScrolled ? 36 : 42} />
                         </div>
-                        <span
-                            className={`font-serif text-xl md:text-2xl font-bold transition-colors ${isScrolled ? 'text-parish-blue' : 'text-white'
-                                }`}
-                        >
-                            Santa Rita
-                        </span>
                     </div>
 
                     <nav className="hidden md:flex items-center gap-6">
