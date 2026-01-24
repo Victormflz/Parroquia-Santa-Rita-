@@ -28,13 +28,14 @@ export const Hero = memo(() => {
                         }
                     }}
                 />
-                {/* Overlay degradado */}
-                <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-parish-blue/80 mix-blend-multiply" />
-                {/* Viñeta (oscurece los bordes) */}
+                {/* Overlay degradado base */}
+                <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-parish-blue/90 mix-blend-multiply transition-opacity duration-1000" />
+
+                {/* Viñeta cinematográfica (oscurece esquinas y bordes) */}
                 <div
-                    className="absolute inset-0"
+                    className="absolute inset-0 pointer-events-none"
                     style={{
-                        background: 'radial-gradient(ellipse at center, transparent 0%, transparent 40%, rgba(0,0,0,0.4) 100%)'
+                        background: 'radial-gradient(circle, transparent 20%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.8) 100%)'
                     }}
                 />
             </div>
