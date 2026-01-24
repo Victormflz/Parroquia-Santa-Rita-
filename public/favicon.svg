@@ -1,0 +1,12 @@
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Fondo dorado -->
+  <rect width="32" height="32" fill="#d97706" rx="4"/>
+  
+  <!-- Cruz blanca -->
+  <g stroke="white" stroke-width="2.5" stroke-linecap="square" stroke-linejoin="miter">
+    <!-- Vertical -->
+    <line x1="16" y1="6" x2="16" y2="26"/>
+    <!-- Horizontal -->
+    <line x1="9" y1="13" x2="23" y2="13"/>
+  </g>
+</svg>
