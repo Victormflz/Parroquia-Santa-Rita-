@@ -56,12 +56,25 @@ export const Header = memo(() => {
     return (
         <>
             <header
-                className={`fixed w-full z-50 transition-all duration-300 ${isScrolled
-                    ? 'bg-white shadow-md py-3'
+                className={`fixed w-full z-[100] transition-all duration-200 ease-out ${isScrolled
+                    ? 'bg-parish-arena/100 backdrop-blur-sm shadow-lg py-3 border-b border-slate-300/50'
                     : 'bg-transparent py-5'
                     }`}
             >
-                <div className="container mx-auto px-4 flex justify-between items-center">
+                {/* Efecto de brillo dorado que ilumina hacia abajo - Oculto en móvil */}
+                {isScrolled && (
+                    <div 
+                        className="hidden md:block absolute bottom-0 left-0 right-0 h-12 pointer-events-none"
+                        style={{
+                            background: 'radial-gradient(ellipse 80% 100% at 50% 0%, rgba(251, 191, 36, 0.4) 0%, rgba(251, 191, 36, 0.2) 40%, transparent 70%)',
+                            transform: 'translateY(100%)',
+                            filter: 'blur(8px)',
+                            animation: 'gentle-glow 3s ease-in-out infinite'
+                        }}
+                    />
+                )}
+                
+                <div className="container mx-auto px-4 flex justify-between items-center relative z-10">
                     <div className="flex items-center">
                         <div className={isScrolled ? 'text-parish-blue' : 'text-white'}>
                             <Logo size={isScrolled ? 36 : 42} />
@@ -96,9 +109,10 @@ export const Header = memo(() => {
 
                         <button
                             onClick={openDonationModal}
+                            aria-label="Abrir formulario de donación"
                             className={`px-5 py-2 rounded-full text-sm font-semibold transition-transform hover:scale-105 ${isScrolled
                                 ? 'bg-parish-blue text-white hover:bg-blue-900'
-                                : 'bg-white text-parish-blue hover:bg-slate-100'
+                                : 'bg-parish-arena text-parish-blue hover:bg-parish-arena-light'
                                 }`}
                         >
                             {t.nav.donate}
@@ -107,7 +121,7 @@ export const Header = memo(() => {
 
                     {/* Mobile Toggle */}
                     <button
-                        className={`md:hidden p-2 rounded-lg transition-colors z-[70] relative ${isMobileMenuOpen || isScrolled
+                        className={`md:hidden p-2 rounded-lg transition-colors z-[95] relative ${isMobileMenuOpen || isScrolled
                             ? 'text-parish-blue hover:bg-slate-100'
                             : 'text-white hover:bg-white/10'
                             }`}
@@ -125,7 +139,7 @@ export const Header = memo(() => {
 
                 {/* Mobile Menu Overlay */}
                 <div
-                    className={`fixed inset-0 bg-white z-[60] transition-all duration-300 ${isMobileMenuOpen
+                    className={`fixed inset-0 bg-parish-arena z-[90] transition-all duration-300 ${isMobileMenuOpen
                         ? 'translate-x-0 opacity-100'
                         : '-translate-x-full opacity-0'
                         }`}
@@ -138,20 +152,20 @@ export const Header = memo(() => {
                         <div className="flex justify-start items-center p-5 border-b border-slate-100">
                             <span className="font-serif text-lg font-bold text-parish-blue">{t.nav.menu}</span>
                         </div>
-                        <div className="flex-1 flex flex-col justify-center items-center gap-6 p-8">
+                        <div className="flex-1 flex flex-col justify-center items-center gap-4 p-6">
                             {navLinks.map((link) => (
                                 <a
                                     key={link.name}
                                     href={link.href}
                                     onClick={closeMobileMenu}
-                                    className="text-2xl font-serif text-slate-800 hover:text-parish-gold transition-colors"
+                                    className="text-2xl font-serif text-slate-800 hover:text-parish-gold transition-colors py-3 px-6 min-h-[44px] flex items-center"
                                 >
                                     {link.name}
                                 </a>
                             ))}
                             <button
                                 onClick={cycleLanguage}
-                                className="mt-4 flex items-center gap-2 text-slate-500 font-medium"
+                                className="mt-4 flex items-center gap-2 text-slate-500 font-medium py-3 px-4 min-h-[44px]"
                                 aria-label={`${t.nav.changeLanguage}. ${t.nav.currentLanguage}: ${language}`}
                             >
                                 <Globe size={18} /> {t.nav.changeLanguage} ({language})
@@ -160,6 +174,7 @@ export const Header = memo(() => {
                         <div className="p-8 border-t border-slate-100">
                             <button
                                 onClick={openDonationModal}
+                                aria-label="Hacer una donación a la parroquia"
                                 className="block w-full text-center bg-parish-gold text-white py-4 rounded-lg font-bold text-lg hover:bg-amber-700 transition-colors"
                             >
                                 {t.nav.makeDonation}
@@ -171,7 +186,7 @@ export const Header = memo(() => {
 
             {/* Modal de Donaciones */}
             <DonationModal isOpen={isDonationModalOpen} onClose={() => setIsDonationModalOpen(false)}>
-                <div className="p-8 md:p-10">
+                <div className="p-5 sm:p-8 md:p-10">
                     {/* Header con mensaje de confianza */}
                     <div className="text-center mb-8">
                         <div className="inline-flex items-center justify-center w-16 h-16 bg-parish-blue/10 rounded-full mb-4">
@@ -210,7 +225,7 @@ export const Header = memo(() => {
                                     <p className="text-sm text-slate-600 mb-4">
                                         Realiza una transferencia directa a nuestra cuenta parroquial
                                     </p>
-                                    <div className="space-y-3 bg-white rounded-lg p-4 border border-slate-200">
+                                    <div className="space-y-3 bg-parish-arena rounded-lg p-4 border border-slate-200">
                                         <div className="flex justify-between items-center">
                                             <div>
                                                 <p className="text-xs font-semibold text-slate-500 uppercase mb-1">Banco</p>
@@ -262,7 +277,7 @@ export const Header = memo(() => {
                                     <p className="text-sm text-slate-600 mb-4">
                                         Donación rápida y segura desde tu móvil
                                     </p>
-                                    <div className="bg-white rounded-lg p-4 border border-blue-200">
+                                    <div className="bg-parish-arena rounded-lg p-4 border border-blue-200">
                                         <p className="text-xs font-semibold text-slate-500 uppercase mb-2">Enviar Bizum al número</p>
                                         <div className="flex items-center justify-between">
                                             <p className="font-mono text-2xl font-bold text-blue-600">600 00 00 00</p>

@@ -28,8 +28,12 @@ const LoadingFallback = () => (
 const App = () => {
   return (
     <div className="min-h-screen flex flex-col font-sans text-parish-text">
+      {/* Skip link para accesibilidad */}
+      <a href="#main-content" className="skip-link">
+        Saltar al contenido principal
+      </a>
       <Header />
-      <main className="flex-grow">
+      <main id="main-content" className="flex-grow">
         <Hero />
         <Suspense fallback={<LoadingFallback />}>
           <History />

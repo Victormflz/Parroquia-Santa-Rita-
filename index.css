@@ -2,8 +2,78 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Ocultar barra de progreso de Vite en desarrollo */
+#vite-plugin-checker-error-overlay,
+[data-vite-dev-id] {
+  display: none !important;
+}
+
+/* Ocultar indicador de progreso naranja de Vite */
+body::before,
+body::after,
+html::before,
+html::after {
+  display: none !important;
+}
+
+/* Ocultar overlay y progress bar de Vite */
+vite-error-overlay,
+#vite-plugin-react-preamble-error-overlay {
+  display: none !important;
+}
+
+/* Ocultar cualquier elemento fixed en top-0 que sea generado por Vite */
+body > div[style*="position: fixed"][style*="top: 0"],
+body > div[style*="position:fixed"][style*="top:0"] {
+  display: none !important;
+}
+
+/* Variables CSS para tema espiritual */
+:root {
+  --color-divine-glow: rgba(217, 119, 6, 0.3);
+  --color-sacred-blue: rgba(30, 58, 138, 0.15);
+  --transition-divine: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 html {
   scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+/* Optimización móvil */
+@media (max-width: 640px) {
+  html {
+    font-size: 14px;
+  }
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  background-color: #f5f1e8;
+  background-image: 
+    repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.015) 2px, rgba(0,0,0,0.015) 4px),
+    repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(0,0,0,0.015) 2px, rgba(0,0,0,0.015) 4px);
+}
+
+/* Eliminar cualquier línea naranja en la parte superior en móvil */
+@media (max-width: 767px) {
+  body::before,
+  body::after,
+  html::before,
+  html::after {
+    display: none !important;
+    background: none !important;
+    border: none !important;
+  }
+  
+  /* Forzar que el primer elemento (header) no tenga borde superior naranja */
+  body > div:first-child,
+  #root,
+  header {
+    border-top: none !important;
+  }
 }
 
 /* Respeta las preferencias de movimiento reducido del usuario */
@@ -11,23 +81,11 @@ html {
   html {
     scroll-behavior: auto;
   }
-  .fade-in-section {
-    opacity: 1 !important;
-    transform: none !important;
-    transition: none !important;
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
-}
-
-.fade-in-section {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-  will-change: opacity, transform;
-}
-
-.fade-in-section.is-visible {
-  opacity: 1;
-  transform: none;
 }
 
 /* Mejoras de rendimiento */
@@ -35,8 +93,187 @@ img {
   content-visibility: auto;
 }
 
+/* Optimizar elementos con animaciones frecuentes */
+.animate-float,
+.animate-glow-pulse {
+  will-change: transform, opacity;
+}
+
 /* Evita FOUC (Flash of Unstyled Content) */
 #root {
   min-height: 100vh;
 }
 
+/* Skip link para accesibilidad */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: #d97706;
+  color: white;
+  padding: 8px 16px;
+  text-decoration: none;
+  z-index: 200;
+  border-radius: 0 0 4px 0;
+  font-weight: bold;
+}
+
+.skip-link:focus {
+  top: 0;
+}
+
+/* Ocultar skip-link en móvil para evitar línea naranja visible */
+@media (max-width: 767px) {
+  .skip-link {
+    display: none;
+  }
+  
+  .skip-link:focus {
+    display: block;
+  }
+  
+  /* Asegurar que no hay elementos con outline naranja visible */
+  *:focus-visible {
+    outline-color: #3b82f6 !important;
+  }
+  
+  /* Eliminar cualquier box-shadow naranja en la parte superior */
+  header {
+    box-shadow: none !important;
+  }
+  
+  header.scrolled,
+  header[class*="shadow"] {
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
+  }
+}
+
+/* Mejoras de accesibilidad para foco */
+*:focus-visible {
+  outline: 3px solid #d97706;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Focus para botones específicos */
+button:focus-visible,
+a:focus-visible {
+  outline: 3px solid #d97706;
+  outline-offset: 2px;
+}
+
+/* Scrollbar personalizada */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, #1e3a8a, #d97706);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(to bottom, #3b82f6, #f59e0b);
+}
+
+/* Utilidades personalizadas */
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  .tap-highlight-none {
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  .touch-manipulation {
+    touch-action: manipulation;
+  }
+}
+
+/* Componentes personalizados */
+@layer components {
+  .btn-sacred {
+    @apply px-6 py-3 rounded-full font-bold transition-all duration-300 transform hover:scale-105 touch-manipulation;
+    @apply shadow-divine hover:shadow-glow;
+  }
+  
+  .btn-primary {
+    @apply btn-sacred bg-parish-blue text-white hover:bg-parish-blue-light;
+  }
+  
+  .btn-secondary {
+    @apply btn-sacred bg-transparent border-2 border-parish-gold text-parish-gold hover:bg-parish-gold hover:text-white;
+  }
+  
+  .card-sacred {
+    @apply bg-parish-arena rounded-2xl shadow-divine hover:shadow-glow-lg transition-all duration-300;
+    @apply hover:-translate-y-1 border border-slate-200/50;
+  }
+  
+  .section-padding {
+    @apply py-16 sm:py-20 lg:py-24;
+  }
+  
+  .container-custom {
+    @apply container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl;
+  }
+}
+
+/* Animaciones de entrada mejoradas */
+@keyframes divine-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes sacred-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px var(--color-divine-glow);
+  }
+  50% {
+    box-shadow: 0 0 40px var(--color-divine-glow), 0 0 60px var(--color-sacred-blue);
+  }
+}
+
+@keyframes gentle-glow {
+  0%, 100% {
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* Mejoras táctiles para móviles */
+@media (hover: none) and (pointer: coarse) {
+  button, a {
+    @apply touch-manipulation tap-highlight-none;
+  }
+  
+  /* Aumentar área táctil de elementos interactivos */
+  button, a, input, select, textarea {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* Optimización de fuentes */
+@font-face {
+  font-family: 'Inter';
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Playfair Display';
+  font-display: swap;
+}

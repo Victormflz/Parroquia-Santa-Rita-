@@ -4,14 +4,14 @@ import react from '@vitejs/plugin-react';
 
 export default defineConfig({
   server: {
-    port: 3000,
+    port: 3001,
     host: true,
     strictPort: false,
     open: false,
     cors: true,
     hmr: {
       overlay: true,
-      clientPort: 3000,
+      clientPort: 3001,
     },
   },
   plugins: [

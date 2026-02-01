@@ -28,7 +28,7 @@ export const DonationModal = memo(({ isOpen, onClose, children }: DonationModalP
             onClick={onClose}
         >
             <div
-                className="relative bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto"
+                className="relative bg-parish-arena rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto"
                 onClick={(e) => e.stopPropagation()}
             >
                 <button

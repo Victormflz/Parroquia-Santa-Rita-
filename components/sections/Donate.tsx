@@ -68,7 +68,7 @@ export const Donate = memo(() => {
             </section>
 
             <DonationModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-                <div className="p-8 md:p-10">
+                <div className="p-5 sm:p-8 md:p-10">
                     {/* Header con mensaje de confianza */}
                     <div className="text-center mb-8">
                         <div className="inline-flex items-center justify-center w-16 h-16 bg-parish-blue/10 rounded-full mb-4">
@@ -107,7 +107,7 @@ export const Donate = memo(() => {
                                     <p className="text-sm text-slate-600 mb-4">
                                         Realiza una transferencia directa a nuestra cuenta parroquial
                                     </p>
-                                    <div className="space-y-3 bg-white rounded-lg p-4 border border-slate-200">
+                                    <div className="space-y-3 bg-parish-arena rounded-lg p-4 border border-slate-200">
                                         <div className="flex justify-between items-center">
                                             <div>
                                                 <p className="text-xs font-semibold text-slate-500 uppercase mb-1">Banco</p>
@@ -159,7 +159,7 @@ export const Donate = memo(() => {
                                     <p className="text-sm text-slate-600 mb-4">
                                         Donación rápida y segura desde tu móvil
                                     </p>
-                                    <div className="bg-white rounded-lg p-4 border border-blue-200">
+                                    <div className="bg-parish-arena rounded-lg p-4 border border-blue-200">
                                         <p className="text-xs font-semibold text-slate-500 uppercase mb-2">Enviar Bizum al número</p>
                                         <div className="flex items-center justify-between">
                                             <p className="font-mono text-2xl font-bold text-blue-600">600 00 00 00</p>

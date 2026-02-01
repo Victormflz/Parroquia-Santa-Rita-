@@ -11,7 +11,7 @@ export const Location = memo(() => {
     return (
         <section id="contacto" className="bg-slate-900 text-white relative">
             <div className="grid grid-cols-1 lg:grid-cols-2 h-full">
-                <div className="p-12 md:p-20 flex flex-col justify-center">
+                <div className="p-6 sm:p-10 md:p-16 lg:p-20 flex flex-col justify-center">
                     <FadeIn>
                         <h2 className="font-serif text-3xl md:text-4xl font-bold mb-12">{t.location.title}</h2>
 
@@ -43,7 +43,7 @@ export const Location = memo(() => {
                     </FadeIn>
                 </div>
 
-                <div className="h-[400px] lg:h-auto min-h-[400px] w-full bg-slate-800 relative">
+                <div className="h-[500px] lg:h-auto min-h-[500px] w-full bg-slate-800 relative">
                     <iframe
                         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d473.02350469120813!2d-6.983159962636966!3d42.41656683676614!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd30847577dc2b63%3A0x2993620d6298024b!2sParroquia%20de%20Santa%20Rita!5e0!3m2!1ses!2ses!4v1769268026807!5m2!1ses!2ses"
                         width="100%"

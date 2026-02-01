@@ -175,7 +175,7 @@ export const translations: Record<Language, Translations> = {
                 thursdayTime: '18:30 - 19:30'
             },
             office: {
-                title: 'Despacho Parroquial',
+                title: 'Oficina de la Iglesia',
                 scheduleLabel: 'Martes y Jueves',
                 scheduleTime: '17:00 - 19:00',
                 urgentLabel: 'Atención Urgente',
@@ -184,7 +184,7 @@ export const translations: Record<Language, Translations> = {
             calendarLink: 'Ver calendario litúrgico completo'
         },
         services: {
-            title: 'Vida Parroquial',
+            title: 'Vida de la Iglesia',
             baptisms: {
                 title: 'Bautismos',
                 description: 'El inicio de la vida cristiana.'
@@ -225,12 +225,12 @@ export const translations: Record<Language, Translations> = {
             description: 'Tus donaciones nos ayudan a mantener nuestra iglesia, realizar obras de caridad y continuar sirviendo a nuestra comunidad. Cada contribución, grande o pequeña, marca una diferencia.',
             bankTransfer: 'Transferencia Bancaria',
             accountNumber: 'Número de Cuenta',
-            concept: 'Concepto: Donativo Parroquia Santa Rita',
+            concept: 'Concepto: Donativo Iglesia Santa Rita',
             thanksMessage: '¡Gracias por tu generosidad!',
         },
         footer: {
             about: 'Sobre Nosotros',
-            aboutText: 'La Parroquia Santa Rita es una comunidad de fe católica dedicada a servir a las familias de O Barco de Valdeorras.',
+            aboutText: 'La Iglesia Santa Rita es una comunidad de fe católica dedicada a servir a las familias de O Barco de Valdeorras.',
             quickLinks: 'Enlaces Rápidos',
             contact: 'Contacto',
             rights: 'Todos los derechos reservados.',
@@ -288,7 +288,7 @@ export const translations: Record<Language, Translations> = {
                 thursdayTime: '18:30 - 19:30'
             },
             office: {
-                title: 'Despacho Parroquial',
+                title: 'Oficina da Igrexa',
                 scheduleLabel: 'Martes e Xoves',
                 scheduleTime: '17:00 - 19:00',
                 urgentLabel: 'Atención Urxente',
@@ -297,7 +297,7 @@ export const translations: Record<Language, Translations> = {
             calendarLink: 'Ver calendario litúrxico completo'
         },
         services: {
-            title: 'Vida Parroquial',
+            title: 'Vida da Igrexa',
             baptisms: {
                 title: 'Bautismos',
                 description: 'O inicio da vida cristiá.'
@@ -338,12 +338,12 @@ export const translations: Record<Language, Translations> = {
             description: 'As túas doazóns axúdannos a manter a nosa igrexa, realizar obras de caridade e continuar servindo á nosa comunidade. Cada contribución, grande ou pequena, marca unha diferenza.',
             bankTransfer: 'Transferencia Bancaria',
             accountNumber: 'Número de Conta',
-            concept: 'Concepto: Donativo Parroquia Santa Rita',
+            concept: 'Concepto: Donativo Igrexa Santa Rita',
             thanksMessage: 'Grazas pola túa xenerosidade!',
         },
         footer: {
             about: 'Sobre Nós',
-            aboutText: 'A Parroquia Santa Rita é unha comunidade de fe católica dedicada a servir ás familias de O Barco de Valdeorras.',
+            aboutText: 'A Igrexa Santa Rita é unha comunidade de fe católica dedicada a servir ás familias de O Barco de Valdeorras.',
             quickLinks: 'Ligazóns Rápidas',
             contact: 'Contacto',
             rights: 'Todos os dereitos reservados.',
@@ -401,7 +401,7 @@ export const translations: Record<Language, Translations> = {
                 thursdayTime: '6:30 PM - 7:30 PM'
             },
             office: {
-                title: 'Parish Office',
+                title: 'Church Office',
                 scheduleLabel: 'Tuesdays & Thursdays',
                 scheduleTime: '5:00 PM - 7:00 PM',
                 urgentLabel: 'Urgent Care',
@@ -410,7 +410,7 @@ export const translations: Record<Language, Translations> = {
             calendarLink: 'View full liturgical calendar'
         },
         services: {
-            title: 'Parish Life',
+            title: 'Church Life',
             baptisms: {
                 title: 'Baptisms',
                 description: 'The beginning of Christian life.'
@@ -451,12 +451,12 @@ export const translations: Record<Language, Translations> = {
             description: 'Your donations help us maintain our church, carry out charitable works and continue serving our community. Every contribution, large or small, makes a difference.',
             bankTransfer: 'Bank Transfer',
             accountNumber: 'Account Number',
-            concept: 'Concept: Donation Parish Santa Rita',
+            concept: 'Concept: Donation Church Santa Rita',
             thanksMessage: 'Thank you for your generosity!',
         },
         footer: {
             about: 'About Us',
-            aboutText: 'The Parish of Santa Rita is a Catholic faith community dedicated to serving the families of O Barco de Valdeorras.',
+            aboutText: 'The Church of Santa Rita is a Catholic faith community dedicated to serving the families of O Barco de Valdeorras.',
             quickLinks: 'Quick Links',
             contact: 'Contact',
             rights: 'All rights reserved.',
