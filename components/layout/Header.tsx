@@ -36,6 +36,36 @@ export const Header = memo(() => {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
+    // Bloquear scroll cuando el menú móvil está abierto
+    useEffect(() => {
+        if (isMobileMenuOpen) {
+            // Guardar posición actual del scroll
+            const scrollY = window.scrollY;
+            document.body.style.position = 'fixed';
+            document.body.style.top = `-${scrollY}px`;
+            document.body.style.width = '100%';
+            document.body.style.overflow = 'hidden';
+        } else {
+            // Restaurar scroll
+            const scrollY = document.body.style.top;
+            document.body.style.position = '';
+            document.body.style.top = '';
+            document.body.style.width = '';
+            document.body.style.overflow = '';
+            if (scrollY) {
+                window.scrollTo(0, parseInt(scrollY || '0') * -1);
+            }
+        }
+
+        return () => {
+            // Cleanup al desmontar
+            document.body.style.position = '';
+            document.body.style.top = '';
+            document.body.style.width = '';
+            document.body.style.overflow = '';
+        };
+    }, [isMobileMenuOpen]);
+
     const closeMobileMenu = useCallback(() => {
         setIsMobileMenuOpen(false);
     }, []);
@@ -56,10 +86,13 @@ export const Header = memo(() => {
     return (
         <>
             <header
-                className={`fixed w-full z-[100] transition-all duration-200 ease-out ${isScrolled
-                    ? 'bg-parish-arena/100 backdrop-blur-sm shadow-lg py-3 border-b border-slate-300/50'
+                className={`fixed w-full z-[100] transition-all duration-300 ease-in-out ${isScrolled
+                    ? 'bg-parish-arena/100 backdrop-blur-sm shadow-lg py-3'
                     : 'bg-transparent py-5'
                     }`}
+                style={{
+                    borderBottom: isScrolled ? '1px solid rgba(203, 213, 225, 0.5)' : '1px solid transparent'
+                }}
             >
                 {/* Efecto de brillo dorado que ilumina hacia abajo - Oculto en móvil */}
                 {isScrolled && (
@@ -119,66 +152,204 @@ export const Header = memo(() => {
                         </button>
                     </nav>
 
-                    {/* Mobile Toggle */}
+                    {/* Mobile Toggle - Diseño Premium Mejorado */}
                     <button
-                        className={`md:hidden p-2 rounded-lg transition-colors z-[95] relative ${isMobileMenuOpen || isScrolled
-                            ? 'text-parish-blue hover:bg-slate-100'
-                            : 'text-white hover:bg-white/10'
-                            }`}
+                        className={`md:hidden relative z-[101] group ${
+                            isScrolled || isMobileMenuOpen
+                                ? 'bg-white/95 backdrop-blur-md shadow-lg'
+                                : 'bg-white/10 backdrop-blur-sm'
+                        } rounded-2xl p-3 transition-all duration-500 ease-out hover:scale-110 active:scale-95 border border-white/20`}
                         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                         aria-label={isMobileMenuOpen ? t.nav.closeMenu : t.nav.menu}
                         aria-expanded={isMobileMenuOpen}
                     >
-                        {isMobileMenuOpen ? (
-                            <X size={32} aria-hidden="true" />
-                        ) : (
-                            <Menu size={32} aria-hidden="true" />
+                        {/* Contenedor de las líneas del hamburguesa/X con animación morphing mejorada */}
+                        <div className="relative w-7 h-6 flex flex-col justify-center items-center">
+                            {/* Línea superior */}
+                            <span
+                                className={`absolute h-0.5 w-full rounded-full transition-all duration-500 ease-[cubic-bezier(0.68,-0.55,0.265,1.55)] ${
+                                    isScrolled || isMobileMenuOpen ? 'bg-parish-blue' : 'bg-white'
+                                } ${
+                                    isMobileMenuOpen
+                                        ? 'rotate-45 translate-y-0 bg-parish-gold scale-110'
+                                        : '-translate-y-2 group-hover:w-5/6 group-hover:-translate-y-2.5'
+                                }`}
+                            />
+                            {/* Línea media */}
+                            <span
+                                className={`absolute h-0.5 rounded-full transition-all duration-300 ease-out ${
+                                    isScrolled || isMobileMenuOpen ? 'bg-parish-blue' : 'bg-white'
+                                } ${
+                                    isMobileMenuOpen ? 'w-0 opacity-0 rotate-180' : 'w-full opacity-100 group-hover:w-4/6'
+                                }`}
+                            />
+                            {/* Línea inferior */}
+                            <span
+                                className={`absolute h-0.5 w-full rounded-full transition-all duration-500 ease-[cubic-bezier(0.68,-0.55,0.265,1.55)] ${
+                                    isScrolled || isMobileMenuOpen ? 'bg-parish-blue' : 'bg-white'
+                                } ${
+                                    isMobileMenuOpen
+                                        ? '-rotate-45 translate-y-0 bg-parish-gold scale-110'
+                                        : 'translate-y-2 group-hover:w-5/6 group-hover:translate-y-2.5'
+                                }`}
+                            />
+                        </div>
+                        
+                        {/* Anillo decorativo al hacer hover y estado activo */}
+                        <div className={`absolute inset-0 rounded-2xl transition-all duration-500 ${
+                            isMobileMenuOpen
+                                ? 'ring-2 ring-parish-gold scale-110'
+                                : isScrolled 
+                                    ? 'ring-2 ring-parish-gold/0 group-hover:ring-parish-gold/50 group-hover:scale-110'
+                                    : 'ring-2 ring-white/0 group-hover:ring-white/60 group-hover:scale-110'
+                        }`} />
+                        
+                        {/* Efecto de pulso cuando está abierto */}
+                        {isMobileMenuOpen && (
+                            <span className="absolute inset-0 rounded-2xl ring-2 ring-parish-gold animate-ping opacity-75" />
                         )}
                     </button>
                 </div>
 
-                {/* Mobile Menu Overlay */}
+                {/* Mobile Menu Overlay - Diseño Premium */}
                 <div
-                    className={`fixed inset-0 bg-parish-arena z-[90] transition-all duration-300 ${isMobileMenuOpen
-                        ? 'translate-x-0 opacity-100'
-                        : '-translate-x-full opacity-0'
-                        }`}
+                    className={`fixed inset-0 z-[90] md:hidden transition-opacity duration-150 ease-out ${
+                        isMobileMenuOpen
+                            ? 'opacity-100 pointer-events-auto'
+                            : 'opacity-0 pointer-events-none'
+                    }`}
                     role="dialog"
                     aria-modal="true"
                     aria-label="Menú de navegación"
-                    aria-hidden={!isMobileMenuOpen}
                 >
-                    <div className="flex flex-col h-full">
-                        <div className="flex justify-start items-center p-5 border-b border-slate-100">
-                            <span className="font-serif text-lg font-bold text-parish-blue">{t.nav.menu}</span>
-                        </div>
-                        <div className="flex-1 flex flex-col justify-center items-center gap-4 p-6">
-                            {navLinks.map((link) => (
-                                <a
-                                    key={link.name}
-                                    href={link.href}
-                                    onClick={closeMobileMenu}
-                                    className="text-2xl font-serif text-slate-800 hover:text-parish-gold transition-colors py-3 px-6 min-h-[44px] flex items-center"
+                    {/* Backdrop con blur instantáneo */}
+                    <div 
+                        className={`absolute inset-0 bg-black/40 transition-all duration-75 ease-out ${
+                            isMobileMenuOpen ? 'opacity-100 backdrop-blur-xl' : 'opacity-0 backdrop-blur-none'
+                        }`}
+                        onClick={closeMobileMenu}
+                        aria-hidden="true"
+                    />
+                    
+                    {/* Panel deslizante desde la derecha con animación mejorada */}
+                    <div
+                        className={`absolute top-0 right-0 bottom-0 w-[85%] max-w-sm bg-gradient-to-br from-parish-arena via-white to-parish-arena-light shadow-2xl transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+                            isMobileMenuOpen 
+                                ? 'translate-x-0 opacity-100' 
+                                : 'translate-x-full opacity-0'
+                        }`}
+                    >
+                        {/* Contenido del menú con animaciones stagger */}
+                        <div className="flex flex-col h-full relative overflow-hidden">
+                            {/* Patrón decorativo de fondo */}
+                            <div className="absolute inset-0 opacity-[0.03]">
+                                <div className="absolute inset-0" 
+                                    style={{
+                                        backgroundImage: 'radial-gradient(circle at 2px 2px, #1e3a8a 1px, transparent 0)',
+                                        backgroundSize: '32px 32px'
+                                    }}
+                                />
+                            </div>
+                            
+                            {/* Header del menú con logo */}
+                            <div className={`relative p-6 border-b-2 border-parish-gold/20 bg-white/50 backdrop-blur-sm transition-all duration-700 delay-100 ${
+                                isMobileMenuOpen ? 'translate-y-0 opacity-100' : '-translate-y-8 opacity-0'
+                            }`}>
+                                <div className="flex items-center justify-between">
+                                    <div className="flex items-center gap-3">
+                                        <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-parish-blue via-parish-blue-light to-parish-gold flex items-center justify-center shadow-lg">
+                                            <Menu className="text-white" size={24} />
+                                        </div>
+                                        <div>
+                                            <h2 className="font-serif text-xl font-bold text-parish-blue leading-tight">Menú</h2>
+                                            <p className="text-xs text-slate-500">Navegación</p>
+                                        </div>
+                                    </div>
+                                    <button
+                                        onClick={closeMobileMenu}
+                                        className="p-2 rounded-xl hover:bg-slate-100 transition-colors"
+                                        aria-label="Cerrar menú"
+                                    >
+                                        <X className="text-slate-600" size={24} />
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            {/* Enlaces de navegación con animación stagger */}
+                            <nav className="flex-1 overflow-y-auto py-8 px-6">
+                                <div className="space-y-2">
+                                    {navLinks.map((link, index) => (
+                                        <a
+                                            key={link.name}
+                                            href={link.href}
+                                            onClick={closeMobileMenu}
+                                            className={`group relative block py-4 px-6 rounded-2xl transition-all duration-300 hover:bg-white/80 hover:shadow-md active:scale-[0.98] ${
+                                                isMobileMenuOpen ? 'translate-x-0 opacity-100' : 'translate-x-8 opacity-0'
+                                            }`}
+                                            style={{
+                                                transitionDelay: isMobileMenuOpen ? `${150 + index * 80}ms` : '0ms'
+                                            }}
+                                        >
+                                            {/* Barra lateral de acento */}
+                                            <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-0 bg-gradient-to-b from-parish-gold to-parish-gold-light rounded-full transition-all duration-300 group-hover:h-8" />
+                                            
+                                            <span className="text-2xl font-serif text-slate-800 group-hover:text-parish-gold transition-colors duration-300 group-hover:translate-x-2 inline-block">
+                                                {link.name}
+                                            </span>
+                                        </a>
+                                    ))}
+                                </div>
+                                
+                                {/* Botón de idioma mejorado */}
+                                <div className={`mt-8 transition-all duration-500 ${
+                                    isMobileMenuOpen ? 'translate-x-0 opacity-100' : 'translate-x-8 opacity-0'
+                                }`} style={{ transitionDelay: isMobileMenuOpen ? `${150 + navLinks.length * 80}ms` : '0ms' }}>
+                                    <button
+                                        onClick={cycleLanguage}
+                                        className="w-full flex items-center justify-between p-4 rounded-2xl border-2 border-slate-200 hover:border-parish-gold hover:bg-white/60 transition-all duration-300 group"
+                                        aria-label={`${t.nav.changeLanguage}. ${t.nav.currentLanguage}: ${language}`}
+                                    >
+                                        <div className="flex items-center gap-3">
+                                            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
+                                                <Globe size={20} className="text-white" />
+                                            </div>
+                                            <span className="font-medium text-slate-700 group-hover:text-parish-blue transition-colors">
+                                                {t.nav.changeLanguage}
+                                            </span>
+                                        </div>
+                                        <span className="px-3 py-1.5 bg-parish-gold/20 text-parish-blue rounded-lg text-sm font-bold">
+                                            {language}
+                                        </span>
+                                    </button>
+                                </div>
+                            </nav>
+                            
+                            {/* Footer con botón de donación destacado */}
+                            <div className={`relative p-6 border-t-2 border-parish-gold/20 bg-white/50 backdrop-blur-sm transition-all duration-700 delay-200 ${
+                                isMobileMenuOpen ? 'translate-y-0 opacity-100 scale-100' : 'translate-y-8 opacity-0 scale-95'
+                            }`}>
+                                <button
+                                    onClick={openDonationModal}
+                                    aria-label="Hacer una donación a la parroquia"
+                                    className="w-full relative overflow-hidden group"
                                 >
-                                    {link.name}
-                                </a>
-                            ))}
-                            <button
-                                onClick={cycleLanguage}
-                                className="mt-4 flex items-center gap-2 text-slate-500 font-medium py-3 px-4 min-h-[44px]"
-                                aria-label={`${t.nav.changeLanguage}. ${t.nav.currentLanguage}: ${language}`}
-                            >
-                                <Globe size={18} /> {t.nav.changeLanguage} ({language})
-                            </button>
-                        </div>
-                        <div className="p-8 border-t border-slate-100">
-                            <button
-                                onClick={openDonationModal}
-                                aria-label="Hacer una donación a la parroquia"
-                                className="block w-full text-center bg-parish-gold text-white py-4 rounded-lg font-bold text-lg hover:bg-amber-700 transition-colors"
-                            >
-                                {t.nav.makeDonation}
-                            </button>
+                                    {/* Fondo con gradiente animado */}
+                                    <div className="absolute inset-0 bg-gradient-to-r from-parish-gold via-amber-500 to-parish-gold bg-[length:200%_100%] group-hover:animate-[shimmer_2s_linear_infinite] rounded-2xl" />
+                                    
+                                    {/* Contenido del botón */}
+                                    <div className="relative py-4 px-6 flex items-center justify-center gap-3 text-white">
+                                        <Heart size={22} className="animate-pulse" />
+                                        <span className="font-bold text-lg">{t.nav.makeDonation}</span>
+                                    </div>
+                                    
+                                    {/* Brillo hover */}
+                                    <div className="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl" />
+                                </button>
+                                
+                                <p className="text-center text-xs text-slate-500 mt-3">
+                                    Tu apoyo hace la diferencia
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -215,7 +386,7 @@ export const Header = memo(() => {
                     {/* Métodos de pago */}
                     <div className="space-y-6">
                         {/* Transferencia Bancaria */}
-                        <div className="bg-slate-50 rounded-xl p-6 border-2 border-slate-200 hover:border-parish-gold transition-colors">
+                        <div className="bg-parish-arena rounded-xl p-6 border-2 border-slate-200 hover:border-parish-gold transition-colors">
                             <div className="flex items-start gap-4">
                                 <div className="p-3 bg-parish-blue rounded-lg">
                                     <Building2 className="text-white" size={24} />
@@ -302,7 +473,7 @@ export const Header = memo(() => {
                         </div>
 
                         {/* PayPal */}
-                        <div className="bg-slate-50 rounded-xl p-6 border-2 border-slate-200 hover:border-parish-gold transition-colors">
+                        <div className="bg-parish-arena rounded-xl p-6 border-2 border-slate-200 hover:border-parish-gold transition-colors">
                             <div className="flex items-start gap-4">
                                 <div className="p-3 bg-[#0070BA] rounded-lg">
                                     <CreditCard className="text-white" size={24} />

@@ -1,6 +1,5 @@
 import { memo, useEffect, useRef } from 'react';
 import { ChevronUp } from 'lucide-react';
-import { FadeIn } from '../ui/FadeIn';
 import { LightParticles } from '../ui/LightParticles';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { useTranslation } from '../../i18n/translations';
@@ -40,7 +39,8 @@ export const Hero = memo(() => {
                     },
                     '-=0.8'
                 )
-                .fromTo(buttonsRef.current?.children,
+                .fromTo(
+                    buttonsRef.current ? Array.from(buttonsRef.current.children) : [],
                     { opacity: 0, y: 20 },
                     { 
                         opacity: 1, 
@@ -77,7 +77,7 @@ export const Hero = memo(() => {
                     alt="Interior de la Iglesia Santa Rita con vitrales dorados"
                     className="w-full h-full object-cover blur-sm"
                     loading="eager"
-                    fetchpriority="high"
+                    {...({ fetchpriority: 'high' } as React.ImgHTMLAttributes<HTMLImageElement>)}
                     style={{
                         objectPosition: '53% 50%',
                         objectFit: 'cover'
@@ -115,10 +115,10 @@ export const Hero = memo(() => {
                 />
             </div>
 
-            <div className="relative z-10 text-center px-4 sm:px-6 max-w-5xl mx-auto text-white pb-12 sm:pb-0">
+            <div className="relative z-10 text-center px-4 sm:px-6 max-w-5xl mx-auto text-white pb-16 sm:pb-0">
                 <h1 
                     ref={titleRef}
-                    className="font-serif text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold mb-5 sm:mb-8 leading-[1.1] tracking-tight"
+                    className="font-serif text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-bold mb-4 sm:mb-6 leading-[0.95] tracking-tight"
                     style={{
                         textShadow: '0 4px 20px rgba(0, 0, 0, 0.5), 0 0 40px rgba(217, 119, 6, 0.3)'
                     }}
@@ -142,7 +142,7 @@ export const Hero = memo(() => {
                 
                 <p 
                     ref={subtitleRef}
-                    className="font-sans text-sm sm:text-lg md:text-xl lg:text-2xl font-light opacity-95 mb-6 sm:mb-12 max-w-3xl mx-auto leading-relaxed tracking-wide"
+                    className="font-sans text-xs sm:text-sm md:text-base lg:text-lg font-light opacity-75 mb-8 sm:mb-10 max-w-2xl mx-auto leading-relaxed tracking-wide"
                     style={{
                         textShadow: '0 2px 10px rgba(0, 0, 0, 0.5)'
                     }}
@@ -150,16 +150,16 @@ export const Hero = memo(() => {
                     {t.hero.subtitle}
                 </p>
                 
-                <div ref={buttonsRef} className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <div ref={buttonsRef} className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center max-w-md mx-auto">
                     <a
                         href="#horarios"
-                        className="w-full sm:w-auto px-8 py-3.5 bg-parish-arena text-parish-blue rounded-full font-bold hover:bg-parish-arena-light hover:shadow-glow transition-all duration-200 ease-out transform hover:scale-105 active:scale-95 flex items-center justify-center text-sm sm:text-base shadow-divine"
+                        className="w-full sm:w-auto px-7 py-3 bg-parish-arena text-parish-blue rounded-full font-bold hover:bg-parish-arena-light hover:shadow-glow transition-all duration-200 ease-out transform hover:scale-105 active:scale-95 flex items-center justify-center text-sm sm:text-base shadow-divine"
                     >
                         {t.hero.scheduleButton}
                     </a>
                     <a
                         href="#donar"
-                        className="w-full sm:w-auto px-8 py-3.5 bg-transparent border-2 border-white/80 text-white rounded-full font-bold hover:bg-white/10 hover:border-white hover:shadow-glow transition-all duration-200 ease-out transform hover:scale-105 active:scale-95 flex items-center justify-center text-sm sm:text-base backdrop-blur-sm"
+                        className="w-full sm:w-auto px-7 py-3 bg-transparent border-2 border-white/70 text-white/90 rounded-full font-semibold hover:bg-white/10 hover:border-white hover:text-white hover:shadow-glow transition-all duration-200 ease-out transform hover:scale-105 active:scale-95 flex items-center justify-center text-sm sm:text-base backdrop-blur-sm"
                     >
                         {t.hero.donateButton}
                     </a>

@@ -97,7 +97,7 @@ export const Donate = memo(() => {
                     {/* Métodos de pago */}
                     <div className="space-y-6">
                         {/* Transferencia Bancaria */}
-                        <div className="bg-slate-50 rounded-xl p-6 border-2 border-slate-200 hover:border-parish-gold transition-colors">
+                        <div className="bg-parish-arena rounded-xl p-6 border-2 border-slate-200 hover:border-parish-gold transition-colors">
                             <div className="flex items-start gap-4">
                                 <div className="p-3 bg-parish-blue rounded-lg">
                                     <Building2 className="text-white" size={24} />
@@ -184,7 +184,7 @@ export const Donate = memo(() => {
                         </div>
 
                         {/* PayPal (Opcional) */}
-                        <div className="bg-slate-50 rounded-xl p-6 border-2 border-slate-200 hover:border-parish-gold transition-colors">
+                        <div className="bg-parish-arena rounded-xl p-6 border-2 border-slate-200 hover:border-parish-gold transition-colors">
                             <div className="flex items-start gap-4">
                                 <div className="p-3 bg-[#0070BA] rounded-lg">
                                     <CreditCard className="text-white" size={24} />

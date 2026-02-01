@@ -254,6 +254,16 @@ a:focus-visible {
   }
 }
 
+/* Animación shimmer para efectos brillantes */
+@keyframes shimmer {
+  0% {
+    background-position: 200% center;
+  }
+  100% {
+    background-position: -200% center;
+  }
+}
+
 /* Mejoras táctiles para móviles */
 @media (hover: none) and (pointer: coarse) {
   button, a {
